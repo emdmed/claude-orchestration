@@ -1,22 +1,23 @@
 {
   "name": "claude-orchestration",
   "version": "1.0.0",
-  "description": "CLI tool to scaffold Claude orchestration files into your project",
-  "main": "index.js",
+  "description": "CLI tool to scaffold Claude orchestration workflows into your project",
   "bin": {
-    "claude-orchestration": "./bin/cli.js"
+    "claude-orchestration": "bin/cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node bin/cli.js --help"
   },
   "keywords": [
     "claude",
     "orchestration",
     "ai",
     "scaffolding",
-    "cli"
+    "cli",
+    "react",
+    "workflows"
   ],
-  "author": "",
+  "author": "Enrique MD",
   "license": "MIT",
   "type": "module",
   "files": [

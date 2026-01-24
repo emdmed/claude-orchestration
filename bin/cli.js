@@ -7,6 +7,34 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+if (process.argv.includes("--help") || process.argv.includes("-h")) {
+  console.log(`
+Usage: npx claude-orchestration
+
+Scaffolds Claude orchestration workflows into your project.
+
+Creates a .claude/ directory with workflow templates for:
+  - feature.md   Building new functionality
+  - bugfix.md    Diagnosing and fixing bugs
+  - refactor.md  Improving code structure
+  - pr.md        Creating pull requests
+  - docs.md      Writing documentation
+
+Options:
+  -h, --help     Show this help message
+  -v, --version  Show version number
+`);
+  process.exit(0);
+}
+
+if (process.argv.includes("--version") || process.argv.includes("-v")) {
+  const pkg = JSON.parse(
+    await fs.readFile(path.join(__dirname, "..", "package.json"), "utf-8")
+  );
+  console.log(pkg.version);
+  process.exit(0);
+}
+
 const SOURCE_DIR = path.join(__dirname, "..", "templates", "claude");
 const DEST_NAME = ".claude";
 const CLAUDE_MD = "CLAUDE.md";
