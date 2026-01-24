@@ -1,0 +1,29 @@
+{
+  "name": "claude-orchestration",
+  "version": "1.0.0",
+  "description": "CLI tool to scaffold Claude orchestration files into your project",
+  "main": "index.js",
+  "bin": {
+    "claude-orchestration": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "claude",
+    "orchestration",
+    "ai",
+    "scaffolding",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "bin",
+    "templates"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
