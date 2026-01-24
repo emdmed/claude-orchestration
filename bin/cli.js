@@ -37,7 +37,6 @@ if (process.argv.includes("--version") || process.argv.includes("-v")) {
 
 const SOURCE_DIR = path.join(__dirname, "..", "templates", "claude");
 const DEST_NAME = ".claude";
-const CLAUDE_MD = "CLAUDE.md";
 
 const ORCHESTRATION_INSTRUCTION = `
 
@@ -46,28 +45,34 @@ const ORCHESTRATION_INSTRUCTION = `
 For complex tasks, refer to .claude/orchestration.md for available workflows.
 `;
 
-async function fileExists(filePath) {
-  try {
-    await fs.access(filePath);
-    return true;
-  } catch {
-    return false;
-  }
+async function findClaudeMdFiles(projectDir) {
+  const entries = await fs.readdir(projectDir, { withFileTypes: true });
+  return entries
+    .filter((entry) => entry.isFile() && entry.name.toLowerCase() === "claude.md")
+    .map((entry) => entry.name);
 }
 
 async function updateClaudeMd(projectDir) {
-  const claudeMdPath = path.join(projectDir, CLAUDE_MD);
+  const claudeMdFiles = await findClaudeMdFiles(projectDir);
 
-  if (await fileExists(claudeMdPath)) {
+  if (claudeMdFiles.length === 0) {
+    const newFilePath = path.join(projectDir, "CLAUDE.md");
+    await fs.writeFile(newFilePath, `# CLAUDE.md${ORCHESTRATION_INSTRUCTION}`);
+    console.log("  Created: CLAUDE.md");
+    return;
+  }
+
+  for (const fileName of claudeMdFiles) {
+    const claudeMdPath = path.join(projectDir, fileName);
     const content = await fs.readFile(claudeMdPath, "utf-8");
 
     if (content.includes(".claude/orchestration.md")) {
-      console.log(`  Skipped: ${CLAUDE_MD} already references orchestration.md`);
-      return;
+      console.log(`  Skipped: ${fileName} already references orchestration.md`);
+      continue;
     }
 
     await fs.appendFile(claudeMdPath, ORCHESTRATION_INSTRUCTION);
-    console.log(`  Updated: ${CLAUDE_MD}`);
+    console.log(`  Updated: ${fileName}`);
   }
 }
 
