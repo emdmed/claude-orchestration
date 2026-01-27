@@ -18,6 +18,8 @@ This will create a `.claude/` directory with workflow templates:
       feature.md
       bugfix.md
       refactor.md
+      performance.md
+      review.md
       pr.md
       docs.md
 ```
@@ -34,7 +36,9 @@ This will create a `.claude/` directory with workflow templates:
 | `feature.md` | Building new functionality |
 | `bugfix.md` | Diagnosing and fixing bugs |
 | `refactor.md` | Improving code without behavior changes |
-| `pr.md` | Creating pull requests |
+| `performance.md` | Profiling and optimizing performance |
+| `review.md` | Reviewing code for merge |
+| `pr.md` | Generating PR title and description |
 | `docs.md` | Writing documentation |
 
 The tool auto-detects React projects and routes to React-specific workflows with React 18 best practices.

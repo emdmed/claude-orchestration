@@ -21,7 +21,9 @@ If React indicators are present → use `workflows/react/` directory
 | `feature.md` | Building new functionality |
 | `bugfix.md` | Diagnosing and fixing bugs |
 | `refactor.md` | Improving code without behavior changes |
-| `pr.md` | Creating and preparing pull requests |
+| `performance.md` | Profiling and optimizing performance |
+| `review.md` | Reviewing code for merge |
+| `pr.md` | Generating PR title and description |
 | `docs.md` | Writing or updating documentation |
 
 **Workflow Path:**
