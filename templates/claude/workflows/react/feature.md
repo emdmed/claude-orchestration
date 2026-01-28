@@ -37,7 +37,7 @@ MUST answer:
 - Extract reusable logic into custom hooks
 - Components handle rendering; hooks handle logic
 - Name descriptively: `useAuthState`, `useFormValidation`
-- Place in `{feature}.hooks.ts`
+- Place in `hooks/{feature}/{hookName}.ts`
 
 **State:**
 - Lift state only as high as necessary
