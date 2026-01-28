@@ -1,6 +1,6 @@
 {
   "name": "claude-orchestration",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CLI tool to scaffold Claude orchestration workflows into your project",
   "bin": {
     "claude-orchestration": "bin/cli.js"

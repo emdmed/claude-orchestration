@@ -29,9 +29,6 @@ MUST answer:
 **Components:**
 - Function components only
 - `useState`/`useReducer` for local state
-- `useTransition` for non-urgent updates
-- `useDeferredValue` for expensive computations
-- `Suspense` for lazy-loaded components
 
 **Hooks:**
 - Extract reusable logic into custom hooks
