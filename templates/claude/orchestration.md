@@ -25,6 +25,7 @@ If React indicators are present → use `workflows/react/` directory
 | `review.md` | Reviewing code for merge |
 | `pr.md` | Generating PR title and description |
 | `docs.md` | Writing or updating documentation |
+| `todo.md` | Creating and managing TODO lists for complex tasks |
 
 **Workflow Path:**
 - React projects: `workflows/react/{workflow}.md`
@@ -36,4 +37,5 @@ If React indicators are present → use `workflows/react/` directory
 - Skip workflows for trivial tasks (typos, simple renames, one-line fixes)
 - Workflows are process guidance, not rigid scripts
 - Read the workflow file before starting, adapt steps as needed
+- Use `todo.md` workflow for any task requiring 3+ distinct steps
 
