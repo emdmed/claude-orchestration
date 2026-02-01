@@ -1,55 +1,37 @@
 # React Feature Workflow
 
-> Architecture rules: See orchestration.md. Violations block merge.
+## 1. Architecture
 
-## Before Coding
+**IF not specified:** Use `AskUserQuestion` (header: "Architecture")
 
-MUST answer:
-- What problem does this feature solve?
-- What's the minimal viable version?
-- Which feature folder does this belong in?
-- Are there existing patterns to follow?
+| Architecture | Structure |
+|--------------|-----------|
+| Feature-driven | `features/{name}/components\|hooks\|utils/` |
+| Flat feature-driven | `features/{name}/` flat files |
+| Atomic design | `atoms\|molecules\|organisms\|templates/` |
 
-## Process
+**IF project has patterns:** Follow existing, skip question.
 
-### 1. Understand Context
-- Read related existing code
-- Identify the target feature folder
-- Check for similar implementations
-- Review reusable hooks and utilities
+## 2. Context
 
-### 2. Plan Implementation
-- Break into small, testable pieces
-- Plan component hierarchy
-- Identify shared vs feature-specific code
-- Design state approach (local, context, or external)
+- Read related code, identify target folder
+- Check similar implementations, reusable hooks/utils
+- Answer: What problem? Minimal version? Which folder?
 
-### 3. Implement
+## 3. Implement
 
-**Components:**
-- Function components only
-- `useState`/`useReducer` for local state
+**Components:** Function only | `useState`/`useReducer` for local state
+**Hooks:** Extract logic | `hooks/{feature}/{name}.ts` | descriptive names
+**State:** Lift only as needed | composition over prop drilling
 
-**Hooks:**
-- Extract reusable logic into custom hooks
-- Components handle rendering; hooks handle logic
-- Name descriptively: `useAuthState`, `useFormValidation`
-- Place in `hooks/{feature}/{hookName}.ts`
+## 4. Validate
 
-**State:**
-- Lift state only as high as necessary
-- Prefer composition over prop drilling
-- `useSyncExternalStore` for external state
-
-### 4. Validate
-- Run existing tests for regressions
-- Add tests for new components/hooks
-- Test loading and error states
-- Remove debugging code and unused imports
+- Run tests for regressions
+- Add tests for new code
+- Test loading/error states
+- Remove debug code
 
 ## Constraints
 
-- NEVER create `index.ts` or `index.tsx` files
-- MUST import directly from file, not folder
-- MUST match surrounding code style
-- NEVER add features beyond what was requested
+- NO `index.ts`/`index.tsx` | import from file directly
+- Match existing style | no extra features

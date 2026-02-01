@@ -1,43 +1,32 @@
 # React Refactor Workflow
 
-> Architecture rules: See orchestration.md. Violations block merge.
+## 1. Safety Net
 
-## Before Coding
+- Run tests | add if coverage insufficient
+- Answer: What improvement? How verify unchanged behavior?
 
-MUST answer:
-- What specific improvement am I making?
-- Is there adequate test coverage?
-- How will I verify behavior is unchanged?
+## 2. Plan
 
-## Process
-
-### 1. Ensure Safety Net
-- Run tests to confirm they pass
-- Add tests if coverage is insufficient
-
-### 2. Plan
-- Map all imports and dependencies
-- Identify all callers of affected code
+- Map imports/dependencies | identify all callers
 - Break into small, safe steps
 
-### 3. Execute Incrementally
+## 3. Execute
 
-Make one type of change at a time. Examples:
+One change type at a time | run tests after each:
 
-- Rename files to match folder names
-- Convert barrel imports to direct imports
-- Extract logic into hooks
-- Split large components
+| Change Types |
+|--------------|
+| Rename files to match folders |
+| Barrel → direct imports |
+| Extract logic into hooks |
+| Split large components |
 
-Run tests after each step.
+## 4. Validate
 
-### 4. Validate
-- All tests pass
-- No `index.ts` or `index.tsx` files remain
-- All entry points match folder names
+- All tests pass | no `index.ts`/`index.tsx`
+- Entry points match folder names
 
 ## Constraints
 
-- Refactoring changes structure, NOT behavior
-- NEVER fix bugs during refactor—note them separately
-- MUST keep scope contained: one change type at a time
+- Structure only, NOT behavior | NO bug fixes
+- One change type at a time | note issues separately

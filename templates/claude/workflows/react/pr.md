@@ -2,23 +2,18 @@
 
 ## Process
 
-1. Read the diff between current branch and main/master
-2. Analyze changes to understand what was done
-3. Output a PR title and description
+1. Read diff (current branch vs main/master)
+2. Analyze changes
+3. Output title + description
 
-## Output Format
+## Output
 
 ```
-PR Title: <concise title>
-
-Description:
-<2-3 sentences: what changed and why>
+PR Title: <imperative mood>
+Description: <2-3 sentences: what + why>
 ```
 
 ## Constraints
 
-- MUST use imperative mood ("Add feature" not "Added feature")
-- MUST mention breaking changes if any
-- Keep description focused on "what" and "why"
-- NEVER create branches, push, or create PRs remotely
-- ONLY output the title and description for the user to copy
+- Imperative mood ("Add" not "Added") | mention breaking changes
+- Output only | NO branch/push/remote PR creation

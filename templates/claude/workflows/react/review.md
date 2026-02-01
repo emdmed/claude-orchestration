@@ -1,54 +1,46 @@
 # React Code Review Workflow
 
-> Architecture rules: See orchestration.md. Violations block merge.
+## 1. Understand
 
-## Before Reviewing
+- Read PR description | review diff scope
+- Answer: What is the goal? What files changed?
 
-MUST answer:
-- What is this change trying to accomplish?
-- What files are modified?
+## 2. Architecture Checklist
 
-## Process
+| Check | Rule |
+|-------|------|
+| Barrels | No `index.ts`/`index.tsx` |
+| Entry files | Match folder names (`Button/Button.tsx`) |
+| Imports | Direct, not barrel |
+| Colocation | Component + hooks + types + tests together |
+| Placement | Correct feature folder |
 
-### 1. Understand the Change
-- Read the PR description
-- Review the diff to understand scope
-- Check if the approach makes sense for the goal
+## 3. React Patterns Checklist
 
-### 2. Check Architecture Compliance
+| Check | Rule |
+|-------|------|
+| Components | Function only, no class |
+| Hooks | No conditionals, proper deps |
+| Effects | Cleanup where needed |
+| Memory | No leaks (subscriptions, timers) |
+| States | Loading + error handled |
 
-- [ ] No `index.ts` or `index.tsx` barrel files
-- [ ] Entry files match folder names (`Button/Button.tsx`)
-- [ ] Direct imports used, not barrel imports
-- [ ] Files colocated properly (component, hooks, types, tests together)
-- [ ] New code placed in correct feature folder
+## 4. Code Quality Checklist
 
-### 3. Check React Patterns
+| Check | Rule |
+|-------|------|
+| Debug | No console.log/debugger |
+| Imports | No unused |
+| Types | No unjustified `any` |
+| Tests | Cover new functionality |
+| Scope | No unrelated changes |
 
-- [ ] Function components only (no class components)
-- [ ] Hooks follow rules (no conditional hooks, proper dependencies)
-- [ ] Effects have cleanup where needed
-- [ ] No obvious memory leaks (subscriptions, timers)
-- [ ] Loading and error states handled
+## 5. Feedback
 
-### 4. Check Code Quality
-
-- [ ] No debugging code left in (console.log, debugger)
-- [ ] No unused imports or variables
-- [ ] Types are accurate (no `any` without justification)
-- [ ] Tests cover new functionality
-- [ ] No unrelated changes mixed in
-
-### 5. Provide Feedback
-
-Categorize comments:
-- **Blocking**: Must fix before merge (bugs, architecture violations)
-- **Suggestion**: Improvements to consider
-- **Question**: Clarification needed
+- **Blocking:** Must fix (bugs, architecture violations)
+- **Suggestion:** Improvements | **Question:** Clarification
 
 ## Constraints
 
-- NEVER approve code with architecture violations
-- NEVER approve code without understanding what it does
-- Keep feedback specific and actionable
-- Suggest fixes, not just problems
+- NO approval with violations | must understand code
+- Specific + actionable | suggest fixes, not just problems
