@@ -1,50 +1,32 @@
 # React Bugfix Workflow
 
-> Architecture rules: See orchestration.md. Violations block merge.
+## 1. Reproduce
 
-## Before Coding
+- Confirm bug exists | find minimal repro
+- Check Strict Mode behavior
+- Answer: Expected vs actual? React 18 concurrent issue?
 
-MUST answer:
-- Can I reproduce the bug?
-- What is expected vs actual behavior?
-- Is this related to React 18 concurrent features?
+## 2. Locate Root Cause
 
-## Process
+| Common React 18 Issues |
+|------------------------|
+| Effects missing cleanup |
+| Stale closures in effects |
+| Concurrent rendering race conditions |
+| Automatic batching changes |
 
-### 1. Reproduce and Isolate
-- Confirm the bug exists
-- Check if it only occurs in Strict Mode
-- Find minimal reproduction case
+## 3. Fix
 
-### 2. Locate Root Cause
+- Keep changes within affected feature folder
+- Add cleanup: `return () => controller.abort()`
+- Fix stale closures with proper deps
 
-**Common React 18 issues:**
-- Effects missing cleanup functions
-- Effects with stale closures
-- Race conditions from concurrent rendering
-- Automatic batching behavior changes
+## 4. Verify
 
-### 3. Fix
-
-MUST keep changes within affected feature folder.
-
-```tsx
-// Example: Add cleanup for effects
-useEffect(() => {
-  const controller = new AbortController()
-  fetchData(controller.signal)
-  return () => controller.abort()
-}, [])
-```
-
-### 4. Verify
-- Confirm bug is fixed
-- Test with Strict Mode enabled
-- Add test that would have caught this bug
+- Confirm fix | test with Strict Mode
+- Add regression test
 
 ## Constraints
 
-- A bugfix is NOT an opportunity to refactor
-- The best fix is the smallest fix
-- NEVER introduce barrel exports
-- Note other issues separately—don't fix them here
+- Smallest fix only | NO refactoring
+- NO barrel exports | note other issues separately
