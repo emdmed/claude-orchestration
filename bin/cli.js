@@ -228,7 +228,7 @@ async function main(options) {
 const program = new Command();
 
 program
-  .name("agent-orchestration")
+  .name("agentic-orchestration")
   .description("Scaffolds agent orchestration workflows into your project")
   .version(pkg.version)
   .option("-a, --all", "Install all workflows without prompting")

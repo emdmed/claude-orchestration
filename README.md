@@ -1,11 +1,11 @@
-# agent-orchestration
+# agentic-orchestration
 
 CLI tool to scaffold agent orchestration workflows into your project.
 
 ## Usage
 
 ```bash
-npx agent-orchestration
+npx agentic-orchestration
 ```
 
 This will create a `.orchestration/` directory with workflow templates:
