@@ -1,17 +1,17 @@
-# claude-orchestration
+# agent-orchestration
 
-CLI tool to scaffold Claude orchestration workflows into your project.
+CLI tool to scaffold agent orchestration workflows into your project.
 
 ## Usage
 
 ```bash
-npx claude-orchestration
+npx agent-orchestration
 ```
 
-This will create a `.claude/` directory with workflow templates:
+This will create a `.orchestration/` directory with workflow templates:
 
 ```
-.claude/
+.orchestration/
   orchestration.md
   workflows/
     react/
@@ -26,8 +26,8 @@ This will create a `.claude/` directory with workflow templates:
 
 ## What it does
 
-1. Copies workflow templates to `.claude/` in your project
-2. Appends orchestration reference to your `CLAUDE.md` (if it exists)
+1. Copies workflow templates to `.orchestration/` in your project
+2. Appends orchestration reference to your `ORCHESTRATION.md` (if it exists)
 
 ## Workflows
 

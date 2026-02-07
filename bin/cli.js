@@ -13,15 +13,15 @@ const pkg = JSON.parse(
   await fs.readFile(path.join(__dirname, "..", "package.json"), "utf-8")
 );
 
-const SOURCE_DIR = path.join(__dirname, "..", "templates", "claude");
+const SOURCE_DIR = path.join(__dirname, "..", "templates", "orchestration");
 const WORKFLOWS_DIR = path.join(SOURCE_DIR, "workflows");
-const DEST_NAME = ".claude";
+const DEST_NAME = ".orchestration";
 
 const ORCHESTRATION_INSTRUCTION = `
 
 ## Orchestration
 
-For complex tasks, refer to .claude/orchestration.md for available workflows.
+For complex tasks, refer to .orchestration/orchestration.md for available workflows.
 `;
 
 const ROOT_WORKFLOWS = [
@@ -56,33 +56,33 @@ function formatWorkflowName(filename) {
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
-async function findClaudeMdFiles(projectDir) {
+async function findOrchestraMdFiles(projectDir) {
   const entries = await fs.readdir(projectDir, { withFileTypes: true });
   return entries
-    .filter((entry) => entry.isFile() && entry.name.toLowerCase() === "claude.md")
+    .filter((entry) => entry.isFile() && entry.name.toLowerCase() === "orchestration.md")
     .map((entry) => entry.name);
 }
 
-async function updateClaudeMd(projectDir) {
-  const claudeMdFiles = await findClaudeMdFiles(projectDir);
+async function updateOrchestraMd(projectDir) {
+  const mdFiles = await findOrchestraMdFiles(projectDir);
 
-  if (claudeMdFiles.length === 0) {
-    const newFilePath = path.join(projectDir, "CLAUDE.md");
-    await fs.writeFile(newFilePath, `# CLAUDE.md${ORCHESTRATION_INSTRUCTION}`);
-    console.log("  Created: CLAUDE.md");
+  if (mdFiles.length === 0) {
+    const newFilePath = path.join(projectDir, "ORCHESTRATION.md");
+    await fs.writeFile(newFilePath, `# ORCHESTRATION.md${ORCHESTRATION_INSTRUCTION}`);
+    console.log("  Created: ORCHESTRATION.md");
     return;
   }
 
-  for (const fileName of claudeMdFiles) {
-    const claudeMdPath = path.join(projectDir, fileName);
-    const content = await fs.readFile(claudeMdPath, "utf-8");
+  for (const fileName of mdFiles) {
+    const mdPath = path.join(projectDir, fileName);
+    const content = await fs.readFile(mdPath, "utf-8");
 
-    if (content.includes(".claude/orchestration.md")) {
+    if (content.includes(".orchestration/orchestration.md")) {
       console.log(`  Skipped: ${fileName} already references orchestration.md`);
       continue;
     }
 
-    await fs.appendFile(claudeMdPath, ORCHESTRATION_INSTRUCTION);
+    await fs.appendFile(mdPath, ORCHESTRATION_INSTRUCTION);
     console.log(`  Updated: ${fileName}`);
   }
 }
@@ -94,7 +94,7 @@ async function copyFile(src, dest) {
 }
 
 async function runInteractiveSetup() {
-  console.log("Claude Orchestration Setup\n");
+  console.log("Agent Orchestration Setup\n");
 
   const folders = await getWorkflowFolders();
   const selectedFiles = [];
@@ -200,7 +200,7 @@ async function main(options) {
 
     if (options.all) {
       selectedFiles = await getAllWorkflows();
-      console.log("Claude Orchestration Setup\n");
+      console.log("Agent Orchestration Setup\n");
       console.log("Installing all workflows...\n");
     } else {
       selectedFiles = await runInteractiveSetup();
@@ -217,8 +217,8 @@ async function main(options) {
       await copySelectedWorkflows(selectedFiles, targetDir);
     }
 
-    await updateClaudeMd(process.cwd());
-    console.log("\nDone! Orchestration files have been added to .claude/");
+    await updateOrchestraMd(process.cwd());
+    console.log("\nDone! Orchestration files have been added to .orchestration/");
   } catch (error) {
     console.error("Error copying files:", error.message);
     process.exit(1);
@@ -228,8 +228,8 @@ async function main(options) {
 const program = new Command();
 
 program
-  .name("claude-orchestration")
-  .description("Scaffolds Claude orchestration workflows into your project")
+  .name("agent-orchestration")
+  .description("Scaffolds agent orchestration workflows into your project")
   .version(pkg.version)
   .option("-a, --all", "Install all workflows without prompting")
   .action((options) => main(options));

@@ -1,15 +1,15 @@
 {
-  "name": "claude-orchestration",
+  "name": "agent-orchestration",
   "version": "1.0.6",
-  "description": "CLI tool to scaffold Claude orchestration workflows into your project",
+  "description": "CLI tool to scaffold agent orchestration workflows into your project",
   "bin": {
-    "claude-orchestration": "bin/cli.js"
+    "agent-orchestration": "bin/cli.js"
   },
   "scripts": {
     "test": "node bin/cli.js --help"
   },
   "keywords": [
-    "claude",
+    "agent",
     "orchestration",
     "ai",
     "scaffolding",
