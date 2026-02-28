@@ -2,7 +2,7 @@
 
 > **Note:** Workflows are fetched at runtime from the CDN using `WebFetch`, so agents always get the latest version.
 
-**MANDATORY: Process BEFORE any tool usage.**
+**MANDATORY FIRST STEP: Read and follow `.orchestration/orchestration.md` before ANY tool usage. No exceptions.**
 
 ## 1. CLASSIFY TASK
 
@@ -27,18 +27,39 @@
 
 ## 2. CODEBASE DISCOVERY PROTOCOL
 
-Before exploring or modifying any codebase, agents MUST follow this discovery sequence:
+Before exploring or modifying any codebase, agents MUST follow this gated discovery sequence. **Each step is a gate — you may NOT proceed to the next until the current step is exhausted.**
 
-1. **Compact first.** Fetch and run the compaction script to generate a structural skeleton of the entire project. Read the resulting `compacted_*.md` file to build a mental map of all files, imports, exports, components, functions, hooks, classes, and types — before touching anything.
+### Step 1: Compact
 
-   ```bash
-   curl -sL https://agentic-orchestration-workflows.vercel.app/tools/compaction.js -o /tmp/compaction.js && node /tmp/compaction.js <project-root>
-   ```
+If no `compacted_*.md` exists in the project root, generate one:
 
-2. **Targeted search second.** Use the compaction output to identify candidate files, then confirm with grep or semantic search to locate the exact lines, variables, or patterns you need.
-3. **Fall back to standard tools only when the above fails.** If compaction doesn't cover a file type, or grep/semantic search returns no results, then use your built-in file-reading, glob, and exploration tools as usual.
+```bash
+curl -sL https://agentic-orchestration-workflows.vercel.app/tools/compaction.js -o /tmp/compaction.js && node /tmp/compaction.js <project-root>
+```
 
-Agents must NOT skip step 1 and jump straight to exploratory file reads or broad glob searches. The compaction skeleton is the cheapest way to understand project structure and should always be the first thing you consult.
+If a `compacted_*.md` already exists, use it directly — do NOT regenerate unless the user requests it.
+
+### Step 2: Search the compaction output (MANDATORY)
+
+Use `Grep` on the `compacted_*.md` file to find the components, hooks, functions, imports, and files relevant to your task. **This is your primary discovery tool.** Extract file paths, function signatures, props, and state shapes from the compaction before doing anything else.
+
+**HARD RULE:** Do NOT use `Read` on any source file, `Glob` for exploration, or spawn Explore agents until you have first grepped the compaction output and stated what you found.
+
+### Step 3: Read source files (only for gaps)
+
+Only after Step 2, read specific source files when you need details the compaction doesn't provide (function bodies, exact logic, CSS, config). **Before each `Read`, state which compaction line led you to that file and what specific detail you need.**
+
+### Step 4: Fall back to broad exploration
+
+Only if compaction doesn't cover a file type (e.g., Rust, TOML, CSS) or grep returns no results, use `Glob`, `Grep` on source, or Explore agents. State why compaction was insufficient.
+
+### VIOLATIONS
+
+The following are protocol violations:
+- Using `Read` on source files before grepping the compaction output
+- Using `Glob` or Explore agents before grepping the compaction output
+- Reading source files without stating which compaction line led you there
+- Skipping Step 2 entirely
 
 ## 3. BINDING (required before ANY tool use)
 
@@ -51,7 +72,7 @@ ORCHESTRATION_BINDING:
 
 ## 4. EXEMPT TASKS
 
-Requires ALL: single file, 1-2 ops, zero architecture impact, obvious correctness.
+Requires ALL: single file, 1-2 ops, zero architecture impact, obvious correctness, **no codebase search needed**.
 
 ```
 ORCHESTRATION_BINDING:
