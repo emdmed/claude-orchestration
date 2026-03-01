@@ -14,7 +14,8 @@
 | slow, optimize, performance, speed | [`performance.md`](https://agentic-orchestration-workflows.vercel.app/orchestration/workflows/react/performance.md) |
 | review, check, PR, merge | [`review.md`](https://agentic-orchestration-workflows.vercel.app/orchestration/workflows/react/review.md) |
 | PR description, pull request title | [`pr.md`](https://agentic-orchestration-workflows.vercel.app/orchestration/workflows/react/pr.md) |
-| document, README, explain | [`docs.md`](https://agentic-orchestration-workflows.vercel.app/orchestration/workflows/react/docs.md) |
+| document, README | [`docs.md`](https://agentic-orchestration-workflows.vercel.app/orchestration/workflows/react/docs.md) |
+| explain, how does, why, what is, describe | `EXPLANATION` (no workflow needed) |
 | complex, multi-step, plan | [`todo.md`](https://agentic-orchestration-workflows.vercel.app/orchestration/workflows/todo.md) |
 
 **Complexity:** 1-2 ops = simple | 3+ ops = complex (add `todo.md`)
@@ -92,13 +93,20 @@ ORCHESTRATION_BINDING:
 
 ## 4. EXEMPT TASKS
 
+### 4a. Zero-tool exemptions
 Requires ALL: single file, 1-2 ops, zero architecture impact, obvious correctness, **no codebase search needed**.
 
-```
 ORCHESTRATION_BINDING:
 - Task: [description]
 - Classification: EXEMPT
-```
+
+### 4b. Explanation / knowledge questions
+Requires ALL: no files modified, no architecture impact, pure explanation or knowledge question.
+**May** search/read code to answer. Skip workflow fetch, compaction, and completion block.
+
+ORCHESTRATION_BINDING:
+- Task: [description]
+- Classification: EXPLANATION
 
 ## 5. COMPLETION
 
