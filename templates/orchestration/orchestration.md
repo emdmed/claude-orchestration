@@ -39,6 +39,16 @@ curl -sL https://agentic-orchestration-workflows.vercel.app/tools/compaction.js 
 
 If a `compacted_*.md` already exists, use it directly — do NOT regenerate unless the user requests it.
 
+### Step 1b: Dependency Graph (optional, recommended for refactors)
+
+If the task involves modifying imports, moving files, or understanding blast radius, generate a dependency graph:
+
+```bash
+curl -sL https://agentic-orchestration-workflows.vercel.app/tools/dep-graph.js -o /tmp/dep-graph.js && node /tmp/dep-graph.js <project-root>
+```
+
+If a `depgraph_*.md` already exists, use it directly. Grep for `imported-by` to check blast radius before making changes.
+
 ### Step 2: Search the compaction output (MANDATORY)
 
 Use `Grep` on the `compacted_*.md` file to find the components, hooks, functions, imports, and files relevant to your task. **This is your primary discovery tool.** Extract file paths, function signatures, props, and state shapes from the compaction before doing anything else.
