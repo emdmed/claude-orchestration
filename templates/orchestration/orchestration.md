@@ -102,7 +102,8 @@ ORCHESTRATION_BINDING:
 
 ### 4b. Explanation / knowledge questions
 Requires ALL: no files modified, no architecture impact, pure explanation or knowledge question.
-**May** search/read code to answer. Skip workflow fetch, compaction, and completion block.
+**May** search/read code to answer. Skip workflow fetch and completion block.
+**Discovery:** Follow the Codebase Discovery Protocol (Section 2) — search compaction output before reading source files. The compact summaries use far fewer tokens than raw source, preserving context for the explanation itself.
 
 ORCHESTRATION_BINDING:
 - Task: [description]

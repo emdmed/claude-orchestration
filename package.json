@@ -1,6 +1,6 @@
 {
   "name": "agentic-orchestration",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "CLI tool to scaffold agent orchestration workflows into your project",
   "bin": {
     "agentic-orchestration": "bin/cli.js"
