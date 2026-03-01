@@ -49,6 +49,16 @@ curl -sL https://agentic-orchestration-workflows.vercel.app/tools/dep-graph.js -
 
 If a `depgraph_*.md` already exists, use it directly. Grep for `imported-by` to check blast radius before making changes.
 
+### Step 1c: Symbol Index (optional, recommended for large codebases)
+
+For fast "where is X defined?" lookups without grepping the full compaction output:
+
+```bash
+curl -sL https://agentic-orchestration-workflows.vercel.app/tools/symbols.js -o /tmp/symbols.js && node /tmp/symbols.js <project-root>
+```
+
+If a `symbols_*.md` already exists, use it directly. Grep for symbol names to find definitions, files, and line numbers.
+
 ### Step 2: Search the compaction output (MANDATORY)
 
 Use `Grep` on the `compacted_*.md` file to find the components, hooks, functions, imports, and files relevant to your task. **This is your primary discovery tool.** Extract file paths, function signatures, props, and state shapes from the compaction before doing anything else.
